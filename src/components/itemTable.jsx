@@ -16,7 +16,7 @@ const ItemTable = () => {
     price: '', 
     qty: '', 
     description: '', 
-    location: '' 
+    lokasi_penyimpanan: '' 
   });
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const ItemTable = () => {
     }
   };
 
-  const isManager = userRole === 'manager'; 
+  const isManager = userRole === 'manajer'; 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -50,7 +50,7 @@ const ItemTable = () => {
   const handleEdit = (product) => {
     setIsEditing(true);
     setCurrentId(product.id);
-    // Isi form dengan data yang ada (termasuk deskripsi & lokasi)
+    // Isi form dengan data yang ada (termasuk description & lokasi)
     setFormData({ 
       name: product.name, 
       price: product.price, 
@@ -106,7 +106,7 @@ const ItemTable = () => {
               <th>No</th>
               <th>Nama Produk</th>
               {/* UPDATE 2: Tambah Header Kolom Baru */}
-              <th>Deskripsi</th>
+              <th>description</th>
               <th>Lokasi</th>
               <th>Harga</th>
               <th>Stok</th>
@@ -117,13 +117,13 @@ const ItemTable = () => {
             {products.map((product, index) => (
               <tr key={product.id || index}>
                 <td>{index + 1}</td>
-                <td style={{fontWeight:'bold', color:'white'}}>{product.name}</td>
+                <td style={{fontWeight:'bold', color:'white'}}>{product.product_name}</td>
                 
                 {/* UPDATE 3: Tampilkan Data Baru */}
                 <td style={{ fontSize: '0.9rem', color: '#ccc' }}>{product.description || '-'}</td>
-                <td>{product.location || '-'}</td>
+                <td>{product.lokasi_penyimpanan || '-'}</td>
                 
-                <td>Rp {parseInt(product.price).toLocaleString('id-ID')}</td>
+                <td>Rp {parseInt(product.harga).toLocaleString('id-ID')}</td>
                 <td>
                    <span style={{ 
                       padding: '4px 8px', 
@@ -158,12 +158,12 @@ const ItemTable = () => {
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label>Nama Produk</label>
-                <input type="text" name="name" className="form-control" value={formData.name} onChange={handleChange} required />
+                <input type="text" name="product_name" className="form-control" value={formData.product_name} onChange={handleChange} required />
               </div>
 
-              {/* UPDATE 4: Input untuk Deskripsi */}
+              {/* UPDATE 4: Input untuk description */}
               <div className="form-group">
-                <label>Deskripsi</label>
+                <label>description</label>
                 <textarea 
                   name="description" 
                   className="form-control" 
@@ -179,9 +179,9 @@ const ItemTable = () => {
                 <label>Lokasi Penyimpanan</label>
                 <input 
                   type="text" 
-                  name="location" 
+                  name="lokasi_penyimpanan" 
                   className="form-control" 
-                  value={formData.location} 
+                  value={formData.lokasi_penyimpanan} 
                   onChange={handleChange} 
                   placeholder="Contoh: Rak A1, Gudang Utama"
                   required 
@@ -190,7 +190,7 @@ const ItemTable = () => {
 
               <div className="form-group">
                 <label>Harga (Rp)</label>
-                <input type="number" name="price" className="form-control" value={formData.price} onChange={handleChange} required />
+                <input type="number" name="harga" className="form-control" value={formData.harga} onChange={handleChange} required />
               </div>
               <div className="form-group">
                 <label>Stok</label>

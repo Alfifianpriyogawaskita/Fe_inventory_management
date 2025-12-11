@@ -5,7 +5,7 @@ import { loginUser } from "../services/api"; // Pastikan import ini benar
 export default function Login() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -15,7 +15,7 @@ export default function Login() {
 
     try {
       // 1. Kirim data login ke backend
-      const res = await loginUser({ email, password });
+      const res = await loginUser({ username, password });
 
       // 2. Simpan Token (jika ada)
       if (res.token) {
@@ -30,11 +30,11 @@ export default function Login() {
 
       // 4. Arahkan ke Dashboard
       // Kita tidak butuh if-else route, karena ItemTable yang akan menyesuaikan tampilan
-      navigate("/dashboard");
+      navigate("/");
 
     } catch (err) {
       console.error(err);
-      setError("Login gagal! Periksa email dan password.");
+      setError("Login gagal! Periksa username dan password.");
     }
   };
 
@@ -45,13 +45,12 @@ export default function Login() {
 
         <form onSubmit={handleLogin}>
           <div style={{marginBottom: '15px'}}>
-            <label style={styles.label}>Email</label>
+            <label style={styles.label}>Username</label>
             <input
               style={styles.input}
-              type="email"
-              placeholder="admin@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Masukkan nama akun pribadi"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
