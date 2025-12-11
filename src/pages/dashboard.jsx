@@ -20,7 +20,7 @@ const Dashboard = () => {
   // Hitung statistik sederhana
   const totalItems = products.length;
   const lowStock = products.filter(item => item.qty < 5).length; // Contoh logika stok menipis
-  const totalValue = products.reduce((acc, item) => acc + (item.price * item.qty), 0);
+  const totalValue = products.reduce((acc, item) => acc + (item.harga * item.qty), 0);
 
   return (
     <div className="container">

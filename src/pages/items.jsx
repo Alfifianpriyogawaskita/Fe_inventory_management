@@ -1,5 +1,5 @@
 import React from "react";
-import ItemTable from "../components/ItemTable.jsx";
+import ItemTable from "../components/itemTable.jsx";
 
 export default function Items() {
   return (

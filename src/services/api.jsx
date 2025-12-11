@@ -1,18 +1,32 @@
 import axios from "axios";
 
-// 1. Export BASE_URL agar bisa diambil oleh itemTable.jsx
 export const BASE_URL = "http://localhost:5000";
 
-// 2. Buat axios instance
 const api = axios.create({
   baseURL: BASE_URL,
 });
 
-// 3. Export fungsi login (opsional, jika masih dipakai)
+// --- INTERCEPTOR REQUEST ---
+api.interceptors.request.use(
+  (config) => {
+    // ERROR WAS HERE: You likely had localStorage.setItem("token")
+    // CORRECTION: Use getItem to READ the token
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 export const loginUser = async (data) => {
   const res = await api.post("/login", data);
   return res.data;
 };
 
-// 4. Export 'api' sebagai default agar dashboard.jsx bisa pakai api.get()
 export default api;

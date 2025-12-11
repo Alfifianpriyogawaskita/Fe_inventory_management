@@ -20,7 +20,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Navbar Styling */
 nav {
   background-color: var(--bg-card);
   padding: 1rem 2rem;
@@ -29,6 +28,15 @@ nav {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  /* --- PENGATURAN BARU ANTI-OVERFLOW --- */
+  width: 100vw;            /* Gunakan %, JANGAN vw */
+  box-sizing: border-box; /* Wajib: Mencegah padding menambah lebar elemen */
+  
+  /* Opsional: Agar navbar tetap nempel di atas saat di-scroll */
+  position: sticky;
+  top: 0;
+  z-index: 50;            /* Agar navbar tidak tertutup konten lain */
 }
 
 nav h1 {
