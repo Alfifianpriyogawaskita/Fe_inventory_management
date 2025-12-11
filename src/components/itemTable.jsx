@@ -43,7 +43,7 @@ const ItemTable = () => {
   const handleAdd = () => {
     setIsEditing(false);
     // Reset form termasuk field baru
-    setFormData({ name: '', price: '', qty: '', description: '', location: '' });
+    setFormData({ product_name: '', harga: '', qty: '', description: '', lokasi_penyimpanan: '' });
     setShowModal(true);
   };
 
@@ -52,11 +52,11 @@ const ItemTable = () => {
     setCurrentId(product.id);
     // Isi form dengan data yang ada (termasuk description & lokasi)
     setFormData({ 
-      name: product.name, 
-      price: product.price, 
+      product_name: product.product_name, 
+      harga: product.harga, 
       qty: product.qty,
       description: product.description || '', // Pakai string kosong jika null
-      location: product.location || '' 
+      lokasi_penyimpanan: product.lokasi_penyimpanan || '' 
     });
     setShowModal(true);
   };
@@ -65,10 +65,10 @@ const ItemTable = () => {
     e.preventDefault();
     try {
       if (isEditing) {
-        await api.patch(`/products/${currentId}`, formData);
+        await api.put(`/edit-product/${currentId}`, formData);
         alert('Data berhasil diupdate!');
       } else {
-        await api.post('/products', formData);
+        await api.post('/add-product', formData);
         alert('Data berhasil ditambahkan!');
       }
       setShowModal(false);
@@ -82,7 +82,7 @@ const ItemTable = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Yakin ingin menghapus?")) {
       try {
-        await api.delete(`/products/${id}`);
+        await api.delete(`/delete-product/${id}`);
         fetchProducts();
       } catch (error) {
         console.error("Gagal menghapus:", error);
